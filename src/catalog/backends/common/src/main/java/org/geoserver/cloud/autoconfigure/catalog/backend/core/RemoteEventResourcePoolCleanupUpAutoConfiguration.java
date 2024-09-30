@@ -7,6 +7,7 @@ package org.geoserver.cloud.autoconfigure.catalog.backend.core;
 import org.geoserver.catalog.ResourcePool;
 import org.geoserver.cloud.autoconfigure.catalog.event.ConditionalOnCatalogEvents;
 import org.geoserver.cloud.event.info.InfoEvent;
+import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
 import org.geoserver.cloud.event.remote.resourcepool.RemoteEventResourcePoolProcessor;
 import org.geoserver.config.plugin.GeoServerImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.Bean;
  * @since 1.0
  */
 @AutoConfiguration
-@ConditionalOnClass(InfoEvent.class)
+@ConditionalOnClass(value = {InfoEvent.class, LifecycleEvent.class})
 @ConditionalOnCatalogEvents
 public class RemoteEventResourcePoolCleanupUpAutoConfiguration {
 
