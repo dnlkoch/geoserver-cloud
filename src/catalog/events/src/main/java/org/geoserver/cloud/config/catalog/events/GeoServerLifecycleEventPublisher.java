@@ -26,27 +26,27 @@ class GeoServerLifecycleEventPublisher implements GeoServerLifecycleHandler {
 
     @Override
     public void onReset() {
-        log.info("Publishing the onReset event");
+        log.debug("Publishing the onReset event");
 
         publish(new ResetEvent());
     }
 
     @Override
     public void onDispose() {
-        log.info("Ignoring the onDispose event");
+        log.debug("Ignoring the onDispose event");
     }
 
     @Override
     public void beforeReload() {
         // Thus, we want to inform all connected services as early as possible
         // to activate reloading in parallel.
-        log.info("Publishing the beforeReload event");
+        log.debug("Publishing the beforeReload event");
 
         publish(new ReloadEvent());
     }
 
     @Override
     public void onReload() {
-        log.info("Ignoring the onReload event");
+        log.debug("Ignoring the onReload event");
     }
 }
