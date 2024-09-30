@@ -7,6 +7,7 @@ package org.geoserver.cloud.config.catalog.events;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
 import org.geoserver.cloud.event.lifecycle.ReloadEvent;
 import org.geoserver.cloud.event.lifecycle.ResetEvent;

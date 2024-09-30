@@ -4,7 +4,10 @@
  */
 package org.geoserver.cloud.event.remote.resourcepool;
 
+import static java.util.Optional.ofNullable;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.geoserver.catalog.*;
 import org.geoserver.catalog.ResourcePool.CacheClearingListener;
 import org.geoserver.cloud.event.catalog.CatalogInfoAdded;
@@ -20,8 +23,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import java.util.Optional;
-
-import static java.util.Optional.ofNullable;
 
 /**
  * Cleans up cached {@link ResourcePool} entries upon remote {@link CatalogInfoAdded}s, {@link

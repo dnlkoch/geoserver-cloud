@@ -4,6 +4,8 @@
  */
 package org.geoserver.config.plugin;
 
+import static org.geoserver.ows.util.OwsUtils.resolveCollections;
+
 import org.geoserver.catalog.Catalog;
 import org.geoserver.catalog.Info;
 import org.geoserver.catalog.WorkspaceInfo;
@@ -30,8 +32,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static org.geoserver.ows.util.OwsUtils.resolveCollections;
 
 /**
  * Default implementation of GeoServer global and service configuration manager.
@@ -511,8 +511,7 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
         } else {
             LOGGER.log(
                     Level.FINE,
-                    "Reloading GeoServer configuration, but not notifying lifecycle dispose handlers"
-            );
+                    "Reloading GeoServer configuration, but not notifying lifecycle dispose handlers");
         }
 
         // internal cleanup
@@ -549,8 +548,7 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
         } else {
             LOGGER.log(
                     Level.FINE,
-                    "Reloading GeoServer configuration, but not notifying lifecycle beforeReload handlers"
-            );
+                    "Reloading GeoServer configuration, but not notifying lifecycle beforeReload handlers");
         }
 
         // perform the reload
@@ -593,8 +591,7 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
             } else {
                 LOGGER.log(
                         Level.FINE,
-                        "Reloading GeoServer configuration, but not notifying lifecycle onReload handlers"
-                );
+                        "Reloading GeoServer configuration, but not notifying lifecycle onReload handlers");
             }
         }
     }
@@ -637,8 +634,7 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
         } else {
             LOGGER.log(
                     Level.FINE,
-                    "Reloading GeoServer configuration, but not notifying lifecycle onReset handlers"
-            );
+                    "Reloading GeoServer configuration, but not notifying lifecycle onReset handlers");
         }
     }
 
