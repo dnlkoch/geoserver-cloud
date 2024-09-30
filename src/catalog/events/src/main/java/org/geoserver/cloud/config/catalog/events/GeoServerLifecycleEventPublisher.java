@@ -7,7 +7,6 @@ package org.geoserver.cloud.config.catalog.events;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
 import org.geoserver.cloud.event.lifecycle.ReloadEvent;
 import org.geoserver.cloud.event.lifecycle.ResetEvent;
@@ -39,13 +38,15 @@ class GeoServerLifecycleEventPublisher implements GeoServerLifecycleHandler {
 
     @Override
     public void beforeReload() {
-        log.info("Ignoring the beforeReload event");
+        // Thus, we want to inform all connected services as early as possible
+        // to activate reloading in parallel.
+        log.info("Publishing the beforeReload event");
+
+        publish(new ReloadEvent());
     }
 
     @Override
     public void onReload() {
-        log.info("Publishing the onReload event");
-
-        publish(new ReloadEvent());
+        log.info("Ignoring the onReload event");
     }
 }
