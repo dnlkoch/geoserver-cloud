@@ -4,6 +4,8 @@
  */
 package org.geoserver.config.plugin;
 
+import static org.geoserver.ows.util.OwsUtils.resolveCollections;
+
 import org.geoserver.catalog.Catalog;
 import org.geoserver.catalog.Info;
 import org.geoserver.catalog.WorkspaceInfo;
@@ -30,8 +32,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static org.geoserver.ows.util.OwsUtils.resolveCollections;
 
 /**
  * Default implementation of GeoServer global and service configuration manager.

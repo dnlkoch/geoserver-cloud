@@ -4,6 +4,8 @@
  */
 package org.geoserver.cloud.autoconfigure.catalog.backend.core;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.geoserver.cloud.event.info.InfoEvent;
 import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
 import org.geoserver.config.plugin.GeoServerImpl;
@@ -11,8 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class RemoteEventResourcePoolCleanupUpAutoConfigurationTest {
 
