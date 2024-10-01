@@ -52,11 +52,13 @@ import org.geoserver.cloud.event.info.InfoAdded;
 import org.geoserver.cloud.event.info.InfoEvent;
 import org.geoserver.cloud.event.info.InfoModified;
 import org.geoserver.cloud.event.info.InfoRemoved;
+import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
 import org.geoserver.config.GeoServer;
 import org.geoserver.config.GeoServerInfo;
 import org.geoserver.config.LoggingInfo;
 import org.geoserver.config.ServiceInfo;
 import org.geoserver.config.SettingsInfo;
+import org.geoserver.platform.GeoServerExtensions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -93,7 +95,7 @@ public abstract class BusAmqpIntegrationTests {
 
     @Container
     private static final RabbitMQContainer rabbitMQContainer =
-            new RabbitMQContainer("rabbitmq:3.11-management");
+            new RabbitMQContainer("rabbitmq:3.13-management");
 
     protected static ConfigurableApplicationContext remoteAppContext;
     private @Autowired ConfigurableApplicationContext localAppContext;
@@ -427,6 +429,12 @@ public abstract class BusAmqpIntegrationTests {
         public <E extends InfoEvent> EventsCaptor capureEventsOf(Class<E> type) {
             local.capture(type);
             remote.capture(type);
+            return this;
+        }
+
+        public <E extends LifecycleEvent> EventsCaptor captureLifecycleEventsOf(Class<E> type) {
+            local.captureLifecycle(type);
+            remote.captureLifecycle(type);
             return this;
         }
 
