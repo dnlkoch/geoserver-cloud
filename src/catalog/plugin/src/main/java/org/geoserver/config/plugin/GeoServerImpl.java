@@ -607,7 +607,7 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
                     ((CatalogImpl) catalog).sync((CatalogImpl) newCatalog);
                     ((CatalogImpl) catalog).resolve();
                 } else {
-                    callGeoServeLoaderReload();
+                    callGeoServerLoaderReload();
                 }
             }
         } finally {
@@ -622,7 +622,7 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
         }
     }
 
-    private void callGeoServeLoaderReload() throws Exception {
+    private void callGeoServerLoaderReload() throws Exception {
         GeoServerLoaderProxy loaderProxy = GeoServerExtensions.bean(GeoServerLoaderProxy.class);
         if (loaderProxy == null) {
             GeoServerLoader geoServerLoader = GeoServerExtensions.bean(GeoServerLoader.class);
