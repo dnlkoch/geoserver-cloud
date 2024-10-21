@@ -114,6 +114,7 @@ public abstract class BusAmqpIntegrationTests {
 
     @BeforeAll
     static void setUpRemoteApplicationContext() {
+
         remoteAppContext =
                 new SpringApplicationBuilder(
                                 TestConfigurationAutoConfiguration.class, BusEventCollector.class)

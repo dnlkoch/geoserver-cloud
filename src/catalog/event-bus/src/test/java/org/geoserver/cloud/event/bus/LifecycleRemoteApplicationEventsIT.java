@@ -5,6 +5,7 @@
 package org.geoserver.cloud.event.bus;
 
 import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
+import org.geoserver.cloud.event.lifecycle.ReloadEvent;
 import org.geoserver.cloud.event.lifecycle.ResetEvent;
 import org.geoserver.config.GeoServer;
 import org.geoserver.platform.GeoServerExtensions;
@@ -29,9 +30,29 @@ class LifecycleRemoteApplicationEventsIT extends BusAmqpIntegrationTests {
         Consumer<GeoServer> modifier = GeoServer::reset;
         modifier.accept(geoserver);
 
-        RemoteGeoServerEvent localRemoteEvent =
-                eventsCaptor.local().expectOneLifecycleEvent(ResetEvent.class);
-        RemoteGeoServerEvent sentEvent =
-                eventsCaptor.remote().expectOneLifecycleEvent(ResetEvent.class);
+        eventsCaptor.local().expectOneLifecycleEvent(ResetEvent.class);
+        eventsCaptor.remote().expectOneLifecycleEvent(ResetEvent.class);
+    }
+
+    @Test
+    void testGeoServerHasExecutedReload() {
+
+        this.eventsCaptor.stop().clear().captureLifecycleEventsOf(LifecycleEvent.class).start();
+
+        Consumer<GeoServer> modifier =
+                geoServer -> {
+                    try {
+                        geoServer.reload();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                };
+        modifier.accept(geoserver);
+
+        // reload also triggers reset!
+        eventsCaptor.local().expectOneLifecycleEvent(ReloadEvent.class);
+        eventsCaptor.local().expectOneLifecycleEvent(ResetEvent.class);
+        eventsCaptor.remote().expectOneLifecycleEvent(ReloadEvent.class);
+        eventsCaptor.remote().expectOneLifecycleEvent(ResetEvent.class);
     }
 }
