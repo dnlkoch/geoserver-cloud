@@ -5,23 +5,17 @@
 package org.geoserver.cloud.event.remote.lifecycle;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.geoserver.catalog.ResourcePool;
-import org.geoserver.cloud.event.catalog.CatalogInfoAdded;
-import org.geoserver.cloud.event.catalog.CatalogInfoModified;
-import org.geoserver.cloud.event.catalog.CatalogInfoRemoved;
 import org.geoserver.cloud.event.lifecycle.ReloadEvent;
 import org.geoserver.cloud.event.lifecycle.ResetEvent;
 import org.geoserver.config.plugin.GeoServerImpl;
 import org.springframework.context.event.EventListener;
 
 /**
- * Cleans up cached {@link ResourcePool} entries upon remote {@link CatalogInfoAdded}s, {@link
- * CatalogInfoModified}s, and {@link CatalogInfoRemoved}s.
+ * Listens for and processes {@link ResetEvent} and {@link ReloadEvent} events.
  *
  * @since 1.0
  */
-@Slf4j(topic = "org.geoserver.cloud.event.remote.resourcepool")
+@Slf4j(topic = "org.geoserver.cloud.event.remote.lifecycle")
 public class LifecycleEventProcessor {
 
     private final GeoServerImpl rawGeoServer;
