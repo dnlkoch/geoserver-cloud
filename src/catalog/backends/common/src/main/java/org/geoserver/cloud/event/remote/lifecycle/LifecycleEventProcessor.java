@@ -5,6 +5,7 @@
 package org.geoserver.cloud.event.remote.lifecycle;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.geoserver.catalog.ResourcePool;
 import org.geoserver.cloud.event.catalog.CatalogInfoAdded;
 import org.geoserver.cloud.event.catalog.CatalogInfoModified;
