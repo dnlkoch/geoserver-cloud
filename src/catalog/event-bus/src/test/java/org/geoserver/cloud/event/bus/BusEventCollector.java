@@ -85,7 +85,7 @@ public class BusEventCollector {
             Class<T> payloadType, Predicate<T> filter) {
 
         List<RemoteGeoServerEvent> matches =
-                await().atMost(Duration.ofSeconds(500)) //
+                await().atMost(Duration.ofSeconds(10)) //
                         .until(() -> allOf(payloadType, filter), not(List::isEmpty));
 
         Supplier<String> message =
@@ -101,7 +101,7 @@ public class BusEventCollector {
             Class<T> payloadType) {
 
         List<RemoteGeoServerEvent> matches =
-                await().atMost(Duration.ofSeconds(500)) //
+                await().atMost(Duration.ofSeconds(10)) //
                         .until(
                                 () -> allOfLifecycle(payloadType, filter -> true),
                                 not(List::isEmpty));
