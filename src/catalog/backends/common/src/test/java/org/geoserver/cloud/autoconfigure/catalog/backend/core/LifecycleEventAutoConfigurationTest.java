@@ -4,8 +4,8 @@
  */
 package org.geoserver.cloud.autoconfigure.catalog.backend.core;
 
-import org.geoserver.catalog.plugin.CatalogPlugin;
-import org.geoserver.cloud.event.info.InfoEvent;
+import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
+import org.geoserver.config.plugin.GeoServerImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -13,14 +13,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RemoteEventResourcePoolCleanupUpAutoConfigurationTest {
+class LifecycleEventAutoConfigurationTest {
 
     private final ApplicationContextRunner runner =
             new ApplicationContextRunner()
-                    .withBean("rawCatalog", CatalogPlugin.class)
+                    .withBean("geoServer", GeoServerImpl.class)
                     .withConfiguration(
                             AutoConfigurations.of(
-                                    RemoteEventResourcePoolCleanupUpAutoConfiguration.class));
+                                    LifecycleEventAutoConfiguration.class));
 
     @Test
     void testDefaultAppContextContributions() {
@@ -28,16 +28,16 @@ class RemoteEventResourcePoolCleanupUpAutoConfigurationTest {
                 context ->
                         assertThat(context)
                                 .hasNotFailed()
-                                .hasBean("remoteEventResourcePoolProcessor"));
+                                .hasBean("lifecycleEventProcessor"));
     }
 
     @Test
     void whenDependentClassesAreNotPresent_thenBeanMissing() {
-        runner.withClassLoader(new FilteredClassLoader(InfoEvent.class))
+        runner.withClassLoader(new FilteredClassLoader(LifecycleEvent.class))
                 .run(
                         context ->
                                 assertThat(context)
                                         .hasNotFailed()
-                                        .doesNotHaveBean("remoteEventResourcePoolProcessor"));
+                                        .doesNotHaveBean("lifecycleEventProcessor"));
     }
 }
