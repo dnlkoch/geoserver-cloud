@@ -7,14 +7,27 @@ package org.geoserver.cloud.config.catalog.events;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import org.geoserver.catalog.Catalog;
 import org.geoserver.cloud.event.lifecycle.LifecycleEvent;
 import org.geoserver.cloud.event.lifecycle.ReloadEvent;
 import org.geoserver.cloud.event.lifecycle.ResetEvent;
+import org.geoserver.config.GeoServer;
 import org.geoserver.config.impl.GeoServerLifecycleHandler;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
 
 import java.util.function.Consumer;
 
+/**
+ * Implements the {@link GeoServerLifecycleHandler} interface to notify lifecycle events (reload/reset)
+ * as regular spring {@link ApplicationEvent application events}, and publishes them to the local {@link ApplicationContext},
+ * so other components interested in these kind of events don't need to register themselves to the
+ * {@link Catalog} and {@link GeoServer} as listeners.
+ *
+ * @see ResetEvent
+ * @see ReloadEvent
+ *
+ */
 @RequiredArgsConstructor
 @Slf4j
 class GeoServerLifecycleEventPublisher implements GeoServerLifecycleHandler {
